@@ -59,9 +59,9 @@ The template also includes dependent resources required by all AI Hub resources:
 By default this template will use a default naming convention to prevent naming collisions within Azure.
 To override default naming conventions the following can be set.
 
-- `AZUREML_AI_HUB_NAME` - The name of the AI Studio Hub resource
-- `AZUREML_AI_PROJECT_NAME` - The name of the AI Studio Project
-- `AZUREML_ENDPOINT_NAME` - The name of the AI Studio online endpoint used for deployments
+- `AZUREAI_HUB_NAME` - The name of the AI Studio Hub resource
+- `AZUREAI_PROJECT_NAME` - The name of the AI Studio Project
+- `AZUREAI_ENDPOINT_NAME` - The name of the AI Studio online endpoint used for deployments
 - `AZURE_OPENAI_NAME` - The name of the Azure Open AI service
 - `AZURE_SEARCH_SERVICE_NAME` - The name of the Azure Search service
 - `AZURE_STORAGE_ACCOUNT_NAME` - The name of the Storage Account
