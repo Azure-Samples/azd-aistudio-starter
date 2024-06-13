@@ -21,7 +21,7 @@ and run
 
 `azd init --template [name-of-template]`
 
-in this case, `[name-of-template]` is `azd-ai-starter`. This will clone the repo files to your directory, including all those Infrastructure as Code files necessary for the [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/overview) to provision, build, and deploy your application.
+in this case, `[name-of-template]` is `azd-ai-starter`. This will clone the repo files to your directory, including all those Infrastructure as Code files necessary for the [Azure Developer CLI](https://learn.microsoft.com/azure/developer/azure-developer-cli/overview) to provision Azure OpenAI resources.
 
 ### Step 2 - Provisioning AI resources
 
@@ -60,9 +60,9 @@ When the deployment is complete, you can test your application in the cloud.
 
 Commit and push your code changes to your repository on [GitHub](https://github.com/), to run the `validation` workflow. The workflow will create a `Success criteria` issue in your repository, and check the passing criteria.
 
-If it succeeds and all success criteria is met, you're ready to create a pull request to the [AI Gallery](https://azure.github.io/ai-apps/) following these guidelines [TBD](#)
+If it succeeds and all success criteria is met, you're ready to submit your template to one of the [awesome-azd](https://azure.github.io/awesome-azd) collections.
 
-If the validation fails, the system will create the corresponding in your repository. Before you open a PR, you will need to fix all issues and close them and mark the corresponding criteria passed, as well as run the validation worflow manually, again.
+If the validation fails, the system will create the corresponding issues in your repository. Before you open a pull request, you will need to fix all issues and close them and mark the corresponding criteria passed, as well as run the validation workflow manually, again.
 
 ## Reporting Issues and Feedback
 
