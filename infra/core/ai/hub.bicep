@@ -18,6 +18,8 @@ param openAiConnectionName string
 param aiSearchName string = ''
 @description('The Azure Cognitive Search service connection name to use for the AI Studio Hub Resource')
 param aiSearchConnectionName string
+@description('The OpenAI Content Safety connection name to use for the AI Studio Hub Resource')
+param openAiContentSafetyConnectionName string
 
 @description('The SKU name to use for the AI Studio Hub Resource')
 param skuName string = 'Basic'
@@ -57,15 +59,6 @@ resource hub 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' =
     publicNetworkAccess: publicNetworkAccess
   }
 
-  resource contentSafetyDefaultEndpoint 'endpoints' = {
-    name: 'Azure.ContentSafety'
-    properties: {
-      name: 'Azure.ContentSafety'
-      endpointType: 'Azure.ContentSafety'
-      associatedResourceId: openAi.id
-    }
-  }
-
   resource openAiConnection 'connections' = {
     name: openAiConnectionName
     properties: {
@@ -73,6 +66,24 @@ resource hub 'Microsoft.MachineLearningServices/workspaces@2024-01-01-preview' =
       authType: 'ApiKey'
       isSharedToAll: true
       target: openAi.properties.endpoints['OpenAI Language Model Instance API']
+      metadata: {
+        ApiVersion: '2023-07-01-preview'
+        ApiType: 'azure'
+        ResourceId: openAi.id
+      }
+      credentials: {
+        key: openAi.listKeys().key1
+      }
+    }
+  }
+
+  resource contentSafetyConnection 'connections' = {
+    name: openAiContentSafetyConnectionName
+    properties: {
+      category: 'AzureOpenAI'
+      authType: 'ApiKey'
+      isSharedToAll: true
+      target: openAi.properties.endpoints['Content Safety']
       metadata: {
         ApiVersion: '2023-07-01-preview'
         ApiType: 'azure'

@@ -21,6 +21,8 @@ param applicationInsightsName string = ''
 param openAiName string = ''
 @description('The Open AI connection name. If ommited will use a default value')
 param openAiConnectionName string = ''
+@description('The Open AI content safety connection name. If ommited will use a default value')
+param openAiContentSafetyConnectionName string = ''
 @description('The Azure Container Registry resource name. If ommited will be generated')
 param containerRegistryName string = ''
 @description('The Azure Key Vault resource name. If ommited will be generated')
@@ -70,6 +72,7 @@ module ai 'core/host/ai-environment.bicep' = {
       : '${abbrs.storageStorageAccounts}${resourceToken}'
     openAiName: !empty(openAiName) ? openAiName : 'aoai-${resourceToken}'
     openAiConnectionName: !empty(openAiConnectionName) ? openAiConnectionName : 'aoai-connection'
+    openAiContentSafetyConnectionName: !empty(openAiContentSafetyConnectionName) ? openAiContentSafetyConnectionName : 'aoai-content-safety-connection'
     openAiModelDeployments: array(contains(aiConfig, 'deployments') ? aiConfig.deployments : [])
     logAnalyticsName: !useApplicationInsights
       ? ''
