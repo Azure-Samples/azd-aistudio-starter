@@ -16,6 +16,8 @@ param openAiName string
 param openAiConnectionName string
 @description('The Open AI model deployments.')
 param openAiModelDeployments array = []
+@description('The Open AI content safety connection name.')
+param openAiContentSafetyConnectionName string
 @description('The Log Analytics resource name.')
 param logAnalyticsName string = ''
 @description('The Application Insights resource name.')
@@ -57,6 +59,7 @@ module hub '../ai/hub.bicep' = {
     applicationInsightsId: hubDependencies.outputs.applicationInsightsId
     openAiName: hubDependencies.outputs.openAiName
     openAiConnectionName: openAiConnectionName
+    openAiContentSafetyConnectionName: openAiContentSafetyConnectionName
     aiSearchName: hubDependencies.outputs.searchServiceName
     aiSearchConnectionName: searchConnectionName
   }
