@@ -39,6 +39,9 @@ param logAnalyticsWorkspaceName string = ''
 param endpointName string = ''
 @description('Id of the user or app to assign application roles')
 param principalId string = ''
+@description('The type of the principal to assign application roles')
+@allowed(['Device', 'ForeignGroup', 'Group', 'ServicePrincipal', 'User'])
+param principalType string = 'User'
 @description('The name of the azd service to use for the machine learning endpoint')
 param endpointServiceName string = 'chat'
 
@@ -72,7 +75,9 @@ module ai 'core/host/ai-environment.bicep' = {
       : '${abbrs.storageStorageAccounts}${resourceToken}'
     openAiName: !empty(openAiName) ? openAiName : 'aoai-${resourceToken}'
     openAiConnectionName: !empty(openAiConnectionName) ? openAiConnectionName : 'aoai-connection'
-    openAiContentSafetyConnectionName: !empty(openAiContentSafetyConnectionName) ? openAiContentSafetyConnectionName : 'aoai-content-safety-connection'
+    openAiContentSafetyConnectionName: !empty(openAiContentSafetyConnectionName)
+      ? openAiContentSafetyConnectionName
+      : 'aoai-content-safety-connection'
     openAiModelDeployments: array(contains(aiConfig, 'deployments') ? aiConfig.deployments : [])
     logAnalyticsName: !useApplicationInsights
       ? ''
@@ -85,8 +90,12 @@ module ai 'core/host/ai-environment.bicep' = {
     containerRegistryName: !useContainerRegistry
       ? ''
       : !empty(containerRegistryName) ? containerRegistryName : '${abbrs.containerRegistryRegistries}${resourceToken}'
-    searchServiceName: !useSearch ? '' : !empty(searchServiceName) ? searchServiceName : '${abbrs.searchSearchServices}${resourceToken}'
-    searchConnectionName: !useSearch ? '' : !empty(searchConnectionName) ? searchConnectionName : 'search-service-connection'
+    searchServiceName: !useSearch
+      ? ''
+      : !empty(searchServiceName) ? searchServiceName : '${abbrs.searchSearchServices}${resourceToken}'
+    searchConnectionName: !useSearch
+      ? ''
+      : !empty(searchConnectionName) ? searchConnectionName : 'search-service-connection'
   }
 }
 
@@ -104,49 +113,45 @@ module machineLearningEndpoint './core/host/ml-online-endpoint.bicep' = {
   }
 }
 
-module userAcrRolePush 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-acr-role-push'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: '8311e382-0749-4cb8-b61a-304f252e45ec'
-      principalType: 'User'
-    }
+module userAcrRolePush 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-acr-role-push'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: '8311e382-0749-4cb8-b61a-304f252e45ec'
+    principalType: principalType
   }
+}
 
-module userAcrRolePull 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-acr-role-pull'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-      principalType: 'User'
-    }
+module userAcrRolePull 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-acr-role-pull'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+    principalType: principalType
   }
+}
 
-module userRoleDataScientist 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-role-data-scientist'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: 'f6c7c914-8db3-469d-8ca1-694a8f32e121'
-      principalType: 'User'
-    }
+module userRoleDataScientist 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-role-data-scientist'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: 'f6c7c914-8db3-469d-8ca1-694a8f32e121'
+    principalType: principalType
   }
+}
 
-module userRoleSecretsReader 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-role-secrets-reader'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: 'ea01e6af-a1c1-4350-9563-ad00f8c72ec5'
-      principalType: 'User'
-    }
+module userRoleSecretsReader 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-role-secrets-reader'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: 'ea01e6af-a1c1-4350-9563-ad00f8c72ec5'
+    principalType: principalType
   }
+}
 
 // output the names of the resources
 output AZURE_TENANT_ID string = tenant().tenantId
