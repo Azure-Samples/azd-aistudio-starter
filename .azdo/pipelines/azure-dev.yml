@@ -42,7 +42,6 @@ steps:
       AZURE_ENV_NAME: $(AZURE_ENV_NAME)
       AZURE_LOCATION: $(AZURE_LOCATION)
       AZURE_PRINCIPAL_ID: $(AZURE_PRINCIPAL_ID)
-      AZURE_PRINCIPAL_TYPE: $(AZURE_PRINCIPAL_TYPE)
 
   - task: AzureCLI@2
     displayName: Deploy Application
