@@ -7,7 +7,7 @@ products:
 - azure
 urlFragment: azd-aistudio-starter
 name: Azure AI Studio starter template
-description: Creates an Azure AI Studio hub, project and required dependent resources including Azure Open AI Service, Cognitive Search and more.
+description: Creates an Azure AI Studio hub, project and required dependent resources including Azure OpenAI Service, Cognitive Search and more.
 ---
 <!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
@@ -62,7 +62,7 @@ To override default naming conventions the following can be set.
 - `AZUREAI_HUB_NAME` - The name of the AI Studio Hub resource
 - `AZUREAI_PROJECT_NAME` - The name of the AI Studio Project
 - `AZUREAI_ENDPOINT_NAME` - The name of the AI Studio online endpoint used for deployments
-- `AZURE_OPENAI_NAME` - The name of the Azure Open AI service
+- `AZURE_OPENAI_NAME` - The name of the Azure OpenAI service
 - `AZURE_SEARCH_SERVICE_NAME` - The name of the Azure Search service
 - `AZURE_STORAGE_ACCOUNT_NAME` - The name of the Storage Account
 - `AZURE_KEYVAULT_NAME` - The name of the Key Vault
