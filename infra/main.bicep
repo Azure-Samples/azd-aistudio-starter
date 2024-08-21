@@ -104,49 +104,41 @@ module machineLearningEndpoint './core/host/ml-online-endpoint.bicep' = {
   }
 }
 
-module userAcrRolePush 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-acr-role-push'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: '8311e382-0749-4cb8-b61a-304f252e45ec'
-      principalType: 'User'
-    }
+module userAcrRolePush 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-acr-role-push'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: '8311e382-0749-4cb8-b61a-304f252e45ec'
   }
+}
 
-module userAcrRolePull 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-acr-role-pull'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-      principalType: 'User'
-    }
+module userAcrRolePull 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-acr-role-pull'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
   }
+}
 
-module userRoleDataScientist 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-role-data-scientist'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: 'f6c7c914-8db3-469d-8ca1-694a8f32e121'
-      principalType: 'User'
-    }
+module userRoleDataScientist 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-role-data-scientist'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: 'f6c7c914-8db3-469d-8ca1-694a8f32e121'
   }
+}
 
-module userRoleSecretsReader 'core/security/role.bicep' =
-  if (!empty(principalId)) {
-    name: 'user-role-secrets-reader'
-    scope: rg
-    params: {
-      principalId: principalId
-      roleDefinitionId: 'ea01e6af-a1c1-4350-9563-ad00f8c72ec5'
-      principalType: 'User'
-    }
+module userRoleSecretsReader 'core/security/role.bicep' = if (!empty(principalId)) {
+  name: 'user-role-secrets-reader'
+  scope: rg
+  params: {
+    principalId: principalId
+    roleDefinitionId: 'ea01e6af-a1c1-4350-9563-ad00f8c72ec5'
   }
+}
 
 // output the names of the resources
 output AZURE_TENANT_ID string = tenant().tenantId
