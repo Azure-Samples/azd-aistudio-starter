@@ -6,8 +6,8 @@ languages:
 products:
 - azure
 urlFragment: azd-aistudio-starter
-name: Azure AI Studio starter template
-description: Creates an Azure AI Studio hub, project and required dependent resources including Azure OpenAI Service, Cognitive Search and more.
+name: Azure AI Foundry starter template
+description: Creates an Azure AI Foundry hub, project and required dependent resources including Azure OpenAI Service, Azure AI Search and more.
 ---
 <!-- YAML front-matter schema: https://review.learn.microsoft.com/en-us/help/contribute/samples/process/onboarding?branch=main#supported-metadata-fields-for-readmemd -->
 
@@ -31,7 +31,7 @@ azd up
 
 ### Provisioned Azure Resources
 
-This template creates everything you need to get started with Azure AI Studio:
+This template creates everything you need to get started with Azure AI Foundry:
 
 - [AI Hub Resource](https://learn.microsoft.com/azure/ai-studio/concepts/ai-resources)
 - [AI Project](https://learn.microsoft.com/azure/ai-studio/how-to/create-projects)
